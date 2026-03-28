@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+
+  postgres-db:
+    image: postgres:15-alpine
+    container_name: chat-postgres
+    environment:
+      POSTGRES_USER: reviewer_user
+      POSTGRES_PASSWORD: reviewer_password
+      POSTGRES_DB: chat_database
+    ports:
+      - "5432:5432"
+
+
+  chat-server:
+    build: .
+    container_name: chat-grpc-server
+    ports:
+      - "9090:9090"
+    depends_on:
+      - postgres-db
+    environment:
+      DB_URL: jdbc:postgresql://postgres-db:5432/chat_database
+      DB_USER: reviewer_user
+      DB_PASSWORD: reviewer_password
