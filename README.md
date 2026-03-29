@@ -11,12 +11,19 @@ This is a simple real time chat application that allows multiple clients to talk
 
 ## How to Run
 
-1. Clone the repository and then go to the root directory and run the following command. This should build the .jar file and boot the containers and setup a local database.
+1. Clone the repository and then go to the root directory and run the following command. This should build the .jar file.
    
    ```bash
-   docker compose up --build
+   ./gradlew clean build -x test
+   
 
-2. The GRPC server should have started and will be listening on port 9090 , DB on port 5432.
+2. Now you can start the server and boot up a database using docker compose.
+
+   ```bash
+   docker compose up --build
+   ```
+   
+3. The GRPC server should have started and will be listening on port 9090 , DB on port 5432.
    To run a client use the first command from the root directory.
 * --console=plain stops docker from unneccessarily cluttering the terminal with progress bars.
 * To run multiple Clients , open a new terminal and run the command again.
@@ -25,7 +32,7 @@ This is a simple real time chat application that allows multiple clients to talk
    ./gradlew runClient --console=plain
    ```
 
-3. To Close the application:
+4. To Close the application:
    
    ```bash
      docker compose down
